@@ -1,6 +1,8 @@
-﻿using RS.Bots.Domain.Interfaces;
+﻿using RS.Bots.Domain.Entities;
+using RS.Bots.Domain.Interfaces;
 using RS.Bots.UIControl;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -23,14 +25,22 @@ namespace RS.Bots.ClickBot
 
         public async Task StartAsync()
         {
-            Console.WriteLine($"{_botName} started");
-
             var dir = new DirectoryInfo(@"C:\Users\kristian.smith\Pictures\RS");
+            var results = new List<VisionResult>();
+
+            Console.WriteLine($"{_botName} started");
             Console.WriteLine($"Analysing images...");
 
             foreach (var file in dir.GetFiles("*.PNG"))
             {
-                await _visionService.AnalyseImageAsync(file.FullName);
+                var broccolis = await _visionService.AnalyseImageAsync(file.FullName, "broccoli");
+                results.AddRange(broccolis);
+
+                foreach (var broc in broccolis)
+                {
+                    Console.WriteLine($"\t {broc.Type} with confidence {broc.Confidence} at location {broc.PositionX}, " +
+                      $"{broc.PositionX + broc.Width}, {broc.PositionY}, {broc.PositionY + broc.Height}. Height {broc.Height} Width {broc.Width}");
+                }
             }
 
             //await Mouse.MoveToPositionAsync(x: 0, y: 0, cursorDelay: 1, cursorSteps: 100);
