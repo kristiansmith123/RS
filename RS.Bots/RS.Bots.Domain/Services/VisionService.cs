@@ -1,11 +1,11 @@
 ﻿using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
+using RS.Bots.Domain.Entities;
 using RS.Bots.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RS.Bots.Domain.Services
@@ -23,28 +23,40 @@ namespace RS.Bots.Domain.Services
             };
         }
 
-        public async Task AnalyseImageAsync(string pathToImage)
+        public async Task<IEnumerable<VisionResult>> AnalyseImageAsync(string pathToImage, string keywords = null)
         {
+            var keywordMatchResults = new List<DetectedObject>();
+
             if (!File.Exists(pathToImage))
             {
                 Console.WriteLine($"Image {pathToImage} does not exist, skipping");
+                return null;
             }
             else
             {
-
                 using (var stream = File.OpenRead(pathToImage))
                 {
                     var client = GetClient();
                     var results = await client.DetectObjectsInStreamAsync(stream);
 
-                    Console.WriteLine($"Detected objects in {Path.GetFileName(pathToImage)}:");
-
-                    // For each detected object in the picture, print out the bounding object detected, confidence of that detection and bounding box within the image
-                    foreach (var obj in results.Objects)
+                    if(keywords != null)
                     {
-                        Console.WriteLine($"\t {obj.ObjectProperty} with confidence {obj.Confidence} at location {obj.Rectangle.X}, " +
-                          $"{obj.Rectangle.X + obj.Rectangle.W}, {obj.Rectangle.Y}, {obj.Rectangle.Y + obj.Rectangle.H}");
+                        keywordMatchResults = results.Objects.Where(o => keywords.ToLower().Contains(o.ObjectProperty.ToLower())).ToList();
                     }
+                    else
+                    {
+                        keywordMatchResults = results.Objects.ToList();
+                    }
+
+                    return keywordMatchResults.Select(r => new VisionResult
+                    {
+                        Type = r.ObjectProperty.ToLower(),
+                        Confidence = r.Confidence,
+                        PositionX = r.Rectangle.X,
+                        PositionY = r.Rectangle.Y,
+                        Height = r.Rectangle.H,
+                        Width = r.Rectangle.W
+                    });
                 }
             }
         }
