@@ -25,34 +25,35 @@ namespace RS.Bots.ClickBot
 
         public async Task StartAsync()
         {
-            var dir = new DirectoryInfo(@"C:\Users\kristian.smith\Pictures\RS");
-            var results = new List<VisionResult>();
+            //var dir = new DirectoryInfo(@"C:\Users\kristian.smith\Pictures\RS");
+            //var results = new List<VisionResult>();
 
-            Console.WriteLine($"{_botName} started");
-            Console.WriteLine($"Analysing images...");
+            //Console.WriteLine($"{_botName} started");
+            //Console.WriteLine($"Analysing images...");
 
-            foreach (var file in dir.GetFiles("*.PNG"))
-            {
-                var broccolis = await _visionService.AnalyseImageAsync(file.FullName, "broccoli");
-                results.AddRange(broccolis);
+            //foreach (var file in dir.GetFiles("*.PNG"))
+            //{
+            //    var broccolis = await _visionService.AnalyseImageAsync(file.FullName, "broccoli");
+            //    results.AddRange(broccolis);
 
-                foreach (var broc in broccolis)
-                {
-                    Console.WriteLine($"\t {broc.Type} with confidence {broc.Confidence} at location {broc.PositionX}, " +
-                      $"{broc.PositionX + broc.Width}, {broc.PositionY}, {broc.PositionY + broc.Height}. Height {broc.Height} Width {broc.Width}");
-                }
-            }
+            //    foreach (var broc in broccolis)
+            //    {
+            //        Console.WriteLine($"\t {broc.Type} with confidence {broc.Confidence} at location {broc.PositionX}, " +
+            //          $"{broc.PositionX + broc.Width}, {broc.PositionY}, {broc.PositionY + broc.Height}. Height {broc.Height} Width {broc.Width}");
+            //    }
+            //}
 
-            //await Mouse.MoveToPositionAsync(x: 0, y: 0, cursorDelay: 1, cursorSteps: 100);
-            //await Mouse.MoveToPositionAsync(x: 100, y: 100, cursorDelay: 5, cursorSteps: 100);
-            //await Mouse.MoveToPositionAsync(x: 1000, y: 700, cursorDelay: 1, cursorSteps: 50);
-            //await Mouse.MoveToPositionAsync(x: 200, y: 200, cursorDelay: 2, cursorSteps: 100);
-            //await Mouse.MoveToPositionAsync(x: 1000, y: 100, cursorDelay: 2, cursorSteps: 100);
-            //await Mouse.MoveToPositionAsync(x: 150, y: 800, cursorDelay: 2, cursorSteps: 50);
-            //await Mouse.MoveToPositionAsync(x: 200, y: 900, cursorDelay: 1, cursorSteps: 200);
-            //await Mouse.MoveToPositionAsync(x: 10, y: 200, cursorDelay: 1, cursorSteps: 100);
-            //await Mouse.MoveToPositionAsync(x: 1200, y: 1000, cursorDelay: 2, cursorSteps: 100);
+            //await Mouse.MoveToPositionAndClickAsync(x: 0, y: 0, cursorDelay: 1, cursorSteps: 100);
+            //await Mouse.MoveToPositionAndClickAsync(x: 100, y: 100, cursorDelay: 5, cursorSteps: 100);
+            //await Mouse.MoveToPositionAndClickAsync(x: 1000, y: 700, cursorDelay: 1, cursorSteps: 50);
+            //await Mouse.MoveToPositionAndClickAsync(x: 200, y: 200, cursorDelay: 2, cursorSteps: 100);
+            //await Mouse.MoveToPositionAndClickAsync(x: 1000, y: 100, cursorDelay: 2, cursorSteps: 100);
+            //await Mouse.MoveToPositionAndClickAsync(x: 150, y: 800, cursorDelay: 2, cursorSteps: 50);
+            //await Mouse.MoveToPositionAndClickAsync(x: 200, y: 900, cursorDelay: 1, cursorSteps: 200);
+            //await Mouse.MoveToPositionAndClickAsync(x: 10, y: 200, cursorDelay: 1, cursorSteps: 100);
+            //await Mouse.MoveToPositionAndClickAsync(x: 1200, y: 1000, cursorDelay: 2, cursorSteps: 100);
 
+            Screenshot.New();
         }
 
         public void Stop()

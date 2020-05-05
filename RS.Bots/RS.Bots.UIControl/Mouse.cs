@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -6,12 +7,7 @@ namespace RS.Bots.UIControl
 {
     public static class Mouse
     {
-        private static void Move(int x, int y)
-        {
-            Cursor.Position = new Point(x, y);
-        }
-
-        public static async Task MoveToPositionAsync(int x, int y, int cursorSteps = 100, int cursorDelay = 2)
+        public static async Task MoveToPositionAndClickAsync(int x, int y, int cursorSteps = 100, int cursorDelay = 2, bool click = true)
         {
             var startPosition = Cursor.Position;
             var currentPosition = startPosition;
@@ -38,10 +34,28 @@ namespace RS.Bots.UIControl
 
             //Move to destination
             Move(x, y);
+
+            if (click)
+            {
+                await Task.Delay(cursorDelay);
+                Click();
+            }
         }
 
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        private static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
 
+        private static void Move(int x, int y)
+        {
+            Cursor.Position = new Point(x, y);
+        }
 
+        private static void Click()
+        {
+            var X = (uint) Cursor.Position.X;
+            var Y = (uint) Cursor.Position.Y;
 
+            mouse_event((int) MouseEventFlags.LeftDown | (int) MouseEventFlags.LeftUp, X, Y, 0, 0);
+        }
     }
 }
