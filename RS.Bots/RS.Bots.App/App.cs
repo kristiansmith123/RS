@@ -10,7 +10,7 @@ namespace RS.Bots.App
 {
     class App
     {
-        private IBot _bot;
+        private readonly IBot _bot;
 
         public App(IBot bot)
         {
