@@ -9,7 +9,7 @@
         public double Height { get; set; }
         public double Width { get; set; }
 
-
-
+        public double PositionMidX => PositionX + (Width / 2);
+        public double PositionMidY => PositionY + (Height / 2);
     }
 }
