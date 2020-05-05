@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using RS.Bots.ClickBot;
 using RS.Bots.Domain.Interfaces;
+using RS.Bots.Domain.Services;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace RS.Bots.App
         {
             services.AddSingleton<App, App>();
             services.AddSingleton<IBot, Bot>();
+            services.AddSingleton<IVisionService, VisionService>();
         }
 
         public static void Main(string[] args)
