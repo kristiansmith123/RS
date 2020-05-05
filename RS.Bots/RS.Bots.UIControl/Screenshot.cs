@@ -11,7 +11,7 @@ namespace RS.Bots.UIControl
         public static void New()
         {
             var captureRectangle = Screen.AllScreens[0].Bounds;
-            var captureBitmap = new Bitmap(captureRectangle.Size.Width, captureRectangle.Size.Height, PixelFormat.Format32bppArgb);
+            var captureBitmap = new Bitmap(990, 650, PixelFormat.Format32bppArgb);
             var captureGraphics = Graphics.FromImage(captureBitmap);
 
             Directory.CreateDirectory($@"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\RS");
