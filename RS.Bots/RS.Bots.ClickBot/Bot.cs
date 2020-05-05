@@ -43,17 +43,25 @@ namespace RS.Bots.ClickBot
             //    }
             //}
 
-            //await Mouse.MoveToPositionAndClickAsync(x: 0, y: 0, cursorDelay: 1, cursorSteps: 100);
-            //await Mouse.MoveToPositionAndClickAsync(x: 100, y: 100, cursorDelay: 5, cursorSteps: 100);
-            //await Mouse.MoveToPositionAndClickAsync(x: 1000, y: 700, cursorDelay: 1, cursorSteps: 50);
-            //await Mouse.MoveToPositionAndClickAsync(x: 200, y: 200, cursorDelay: 2, cursorSteps: 100);
-            //await Mouse.MoveToPositionAndClickAsync(x: 1000, y: 100, cursorDelay: 2, cursorSteps: 100);
-            //await Mouse.MoveToPositionAndClickAsync(x: 150, y: 800, cursorDelay: 2, cursorSteps: 50);
-            //await Mouse.MoveToPositionAndClickAsync(x: 200, y: 900, cursorDelay: 1, cursorSteps: 200);
-            //await Mouse.MoveToPositionAndClickAsync(x: 10, y: 200, cursorDelay: 1, cursorSteps: 100);
-            //await Mouse.MoveToPositionAndClickAsync(x: 1200, y: 1000, cursorDelay: 2, cursorSteps: 100);
+            //RS game boundaries are:
+            //  top left 10, 30
+            //  bottom left 10, 650
+            //  bottom right 990, 650
+            //  top right 990, 30
 
-            Screenshot.New();
+            Console.WriteLine("Sleeping 5s");
+            await Task.Delay(3000);
+            
+            await Mouse.MoveToPositionAndClickAsync(x: 155, y: 309, cursorDelay: 3, cursorSteps: 100);
+            Console.WriteLine("Sleeping 3s");
+            await Task.Delay(3000);
+            await Mouse.MoveToPositionAndClickAsync(x: 541, y: 252, cursorDelay: 3, cursorSteps: 100);
+            Console.WriteLine("Sleeping 3s");
+            await Task.Delay(3000);
+            await Mouse.MoveToPositionAndClickAsync(x: 752, y: 604, cursorDelay: 3, cursorSteps: 100);
+            
+            
+            //Screenshot.New();
         }
 
         public void Stop()
