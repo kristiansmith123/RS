@@ -2,7 +2,7 @@
 {
     public class MatchedModelResult
     {
-        public double LocationX { get; set; }
-        public double LocationY { get; set; }
+        public double PositionMidX { get; set; }
+        public double PositionMidY { get; set; }
     }
 }

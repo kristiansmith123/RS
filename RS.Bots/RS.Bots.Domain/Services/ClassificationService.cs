@@ -5,6 +5,7 @@ using RS.Bots.Domain.Entities;
 using RS.Bots.Domain.Interfaces;
 using System;
 using System.Drawing;
+using System.Linq;
 
 namespace RS.Bots.Domain.Services
 {
@@ -35,22 +36,27 @@ namespace RS.Bots.Domain.Services
                 //Match Template
                 using (var result_Matrix = pad_array.MatchTemplate(modelImage, TemplateMatchingType.CcoeffNormed))
                 {
-                    Point[] MAX_Loc, Min_Loc;
+                    Point[] maxLocation, MinLocation;
                     double[] min, max;
 
                     //Limit ROI to look for Match
                     result_Matrix.ROI = new Rectangle(modelImage.Width, modelImage.Height, areaImage.Width - modelImage.Width, areaImage.Height - modelImage.Height);
-                    result_Matrix.MinMax(out min, out max, out Min_Loc, out MAX_Loc);
+                    result_Matrix.MinMax(out min, out max, out MinLocation, out maxLocation);
 
                     //var results = result_Matrix.Convert<Gray, Double>();
                     //Area_Image.Draw(new Rectangle(midPoint, new Size(15, 15)), new Gray(), 2);
                     //Area_Image.Save($"{Guid.NewGuid().ToString().Replace('-', '.')}.jpg");
 
+                    if((MinLocation.Last().X == 0.0 && maxLocation.Last().Y == 0.0))
+                    {
+                        return null;
+                    }
+
                     //Middle of the area
                     return new MatchedModelResult 
                     {
-                        LocationX = MAX_Loc[MAX_Loc.Length / 2].X,
-                        LocationY = MAX_Loc[MAX_Loc.Length / 2].Y
+                        PositionMidX = maxLocation[0].X + (modelImage.Width / 2),
+                        PositionMidY = maxLocation[0].Y + (modelImage.Height / 2)
                     };                  
                 }
             }

@@ -56,7 +56,7 @@ namespace RS.Bots.Domain.Services
                         PositionY = r.Rectangle.Y,
                         Height = r.Rectangle.H,
                         Width = r.Rectangle.W
-                    });
+                    }).ToList();
                 }
             }
         }
