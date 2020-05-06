@@ -16,6 +16,8 @@ namespace RS.Bots.App
             services.AddSingleton<App, App>();
             services.AddSingleton<IBot, Bot>();
             services.AddSingleton<IVisionService, VisionService>();
+            services.AddSingleton<IClassificationService, ClassificationService>();
+
         }
 
         public static void Main(string[] args)
