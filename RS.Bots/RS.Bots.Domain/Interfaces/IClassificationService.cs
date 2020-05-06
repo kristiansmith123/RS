@@ -6,7 +6,6 @@ namespace RS.Bots.Domain.Interfaces
 {
     public interface IClassificationService
     {
-        Task<IEnumerable<VisionResult>> AnalyseImageAsync(string pathToImage, string keywords = null);
-        bool Detect(string pathToImage, string pathToModel);
+        MatchedModelResult MatchModelInImage(string pathToImage, string pathToModel);
     }
 }

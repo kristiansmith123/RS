@@ -27,51 +27,51 @@ namespace RS.Bots.ClickBot
 
         public async Task StartAsync()
         {
-            var dir = new DirectoryInfo($@"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\RS");
-            var results = new List<VisionResult>();
-
-            foreach (var file in dir.GetFiles("*.jpg"))
-            {
-                var result = _classificationService.Detect(file.FullName, @"C:\Users\kristian.smith\Documents\RS\model.jpg");
-            }
-
-
-            //Console.WriteLine($"{_botName} started");
-            //Console.WriteLine("Sleeping 5 seconds...");
-
-            //await Task.Delay(3000);
-            //Screenshot.New();
-
-            //Console.WriteLine($"Screenshot cpatured");
-
             //var dir = new DirectoryInfo($@"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\RS");
             //var results = new List<VisionResult>();
 
             //foreach (var file in dir.GetFiles("*.jpg"))
             //{
-            //    Console.WriteLine($"Analysing screenshot for broccoli...");
-
-            //    var broccolis = await _visionService.AnalyseImageAsync(file.FullName, "broccoli");
-            //    results.AddRange(broccolis);
-
-            //    foreach (var broc in broccolis)
-            //    {
-            //        Console.WriteLine($"\t Broccoli found with mid point {broc.PositionMidX}, {broc.PositionMidY}");
-            //        Console.WriteLine("Clicking");
-
-            //        await Mouse.MoveToPositionAndClickAsync(x: (int) broc.PositionMidX, y: (int) broc.PositionMidY, cursorDelay: 3, cursorSteps: 100);
-            //        Console.WriteLine("Sleeping 3 seconds");
-            //    }
-
-            //    file.Delete();
+            //    var result = _classificationService.Detect(file.FullName, @"C:\Users\kristian.smith\Documents\RS\model.jpg");
             //}
 
-            //RS game boundaries are:
-            //  top left 10, 30
-            //  bottom left 10, 650
-            //  bottom right 990, 650
-            //  top right 990, 30
-            //check this in screenshot!!!!!!
+
+            Console.WriteLine($"{_botName} started");
+            Console.WriteLine("Sleeping 5 seconds...");
+
+            await Task.Delay(5000);
+            Screenshot.New();
+
+            Console.WriteLine($"Screenshot cpatured");
+
+            var dir = new DirectoryInfo($@"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\RS");
+            var results = new List<VisionResult>();
+
+            foreach (var file in dir.GetFiles("*.jpg"))
+            {
+                Console.WriteLine($"Analysing screenshot for broccoli...");
+
+                var broccolis = await _visionService.AnalyseImageAsync(file.FullName, "broccoli");
+                results.AddRange(broccolis);
+
+                foreach (var broc in broccolis)
+                {
+                    Console.WriteLine($"\t Broccoli found with mid point {broc.PositionMidX}, {broc.PositionMidY}");
+                    Console.WriteLine("Clicking");
+
+                    await Mouse.MoveToPositionAndClickAsync(x: (int)broc.PositionMidX, y: (int)broc.PositionMidY, cursorDelay: 3, cursorSteps: 100);
+                    Console.WriteLine("Sleeping 3 seconds");
+                }
+
+                file.Delete();
+            }
+
+            ////RS game boundaries are:
+            ////  top left 10, 30
+            ////  bottom left 10, 650
+            ////  bottom right 990, 650
+            ////  top right 990, 30
+            ////check this in screenshot!!!!!!
 
 
             //await Mouse.MoveToPositionAndClickAsync(x: 155, y: 309, cursorDelay: 3, cursorSteps: 100);

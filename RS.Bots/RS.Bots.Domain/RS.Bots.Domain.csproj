@@ -81,6 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\MatchedModelResult.cs" />
     <Compile Include="Entities\VisionResult.cs" />
     <Compile Include="Interfaces\IBot.cs" />
     <Compile Include="Interfaces\IClassificationService.cs" />
